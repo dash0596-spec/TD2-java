@@ -4,8 +4,18 @@ public class SimulTamagotchis {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Combien de tamagotchis ? ");
-        int n = Integer.parseInt(sc.nextLine().trim());
+        int n = 0;
+while (n <= 0) {
+    System.out.print("Combien de tamagotchis ? ");
+    try {
+        n = Integer.parseInt(sc.nextLine().trim());
+        if (n <= 0) {
+            System.out.println("Veuillez taper un nombre supérieur à 0.");
+        }
+    } catch (NumberFormatException e) {
+        System.out.println("Veuillez taper un nombre.");
+    }
+}
 
         Tamagotchi[] colonie = new Tamagotchi[n];
         for (int i = 0; i < n; i++) {
@@ -45,17 +55,21 @@ public class SimulTamagotchis {
                 }
             }
             System.out.println();
-            System.out.print("Nourrir quel tamagotchi ? ");
-            try {
-                int choix = Integer.parseInt(sc.nextLine().trim());
-                if (choix >= 0 && choix < n && !colonie[choix].ageLimite()) {
-                    colonie[choix].manger();
-                } else {
-                    System.out.println("Choix invalide, personne n'est nourri.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Ce n'est pas un nombre, personne n'est nourri.");
-            }
+ boolean nourri = false;
+while (!nourri) {
+    System.out.print("Nourrir quel tamagotchi ? ");
+    try {
+        int choix = Integer.parseInt(sc.nextLine().trim());
+        if (choix >= 0 && choix < n && !colonie[choix].ageLimite()) {
+            colonie[choix].manger();
+            nourri = true;
+        } else {
+            System.out.println("Numéro invalide, recommencez.");
         }
+    } catch (NumberFormatException e) {
+        System.out.println("Veuillez taper un nombre.");
+    }
+}
+       }
     }
 }
